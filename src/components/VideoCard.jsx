@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import { useNavigate } from "react-router-dom";
+
 import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import { useVideos } from "../main";
@@ -6,6 +8,7 @@ import { videoConstants } from "../constants/video-constants";
 
 export const VideoCard = ({ video }) => {
   const { setVideos } = useVideos();
+  const navigate = useNavigate();
   const {
     _id,
     title,
@@ -21,15 +24,19 @@ export const VideoCard = ({ video }) => {
   const { HANDLE_WATCH_LATER_VIDEO } = videoConstants;
 
   return (
-    <div className="flex w-80 flex-col gap-3">
+    <div
+      className="flex w-80 flex-col gap-3 hover:cursor-pointer hover:text-blue-400"
+      onClick={() => navigate(`/video/${_id}`)}
+    >
       <div className="relative h-44 w-full text-blue-400 ">
         <img src={thumbnail} className="object-fit h-full w-full" />
         <div
           className="absolute right-0 top-0 rounded-bl-md bg-white p-1 hover:cursor-pointer"
           title={`${watchLater ? "Remove from" : "Add to"} Watch Later`}
-          onClick={() =>
-            setVideos({ type: HANDLE_WATCH_LATER_VIDEO, payload: _id })
-          }
+          onClick={(e) => {
+            e.stopPropagation();
+            setVideos({ type: HANDLE_WATCH_LATER_VIDEO, payload: _id });
+          }}
         >
           {watchLater ? <WatchLaterIcon /> : <WatchLaterOutlinedIcon />}
         </div>

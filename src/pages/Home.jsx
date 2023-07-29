@@ -6,6 +6,7 @@ import { Explore } from "./Explore";
 import { Playlists } from "./Playlists";
 import { WatchLater } from "./WatchLater";
 import { CategoryDetail } from "./CategoryDetail";
+import { VideoDetail } from "./VideoDetail";
 
 export const Home = () => {
   return (
@@ -14,6 +15,7 @@ export const Home = () => {
       <Routes>
         <Route path="/" element={<Categories />} />
         <Route path="/category/:categoryId" element={<CategoryDetail />} />
+        <Route path="/video/:videoId" element={<VideoDetail />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/playlists" element={<Playlists />} />
         <Route path="/watchLater" element={<WatchLater />} />
