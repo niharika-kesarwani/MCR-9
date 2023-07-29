@@ -1,3 +1,4 @@
 export const videoConstants = {
   SET_VIDEOS: "SET_VIDEOS",
+  HANDLE_WATCH_LATER_VIDEO: "HANDLE_WATCH_LATER_VIDEO",
 };

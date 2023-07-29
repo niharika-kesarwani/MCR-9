@@ -17,6 +17,7 @@ export const Sidebar = () => {
               onSameRoute && "text-blue-400"
             }`}
             onClick={() => navigate(route)}
+            title={text}
           >
             <div>{icon}</div>
             <div>{text}</div>
