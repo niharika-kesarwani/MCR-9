@@ -8,6 +8,8 @@ export const videosReducer = (state, { type, payload }) => {
     SET_SELECTED_PLAYLIST,
     REMOVE_FROM_PLAYLIST,
     DELETE_PLAYLIST,
+    SET_SHOW_ADD_NEW_PLAYLIST_MODAL,
+    ADD_NEW_PLAYLIST,
   } = videoConstants;
 
   switch (type) {
@@ -45,6 +47,10 @@ export const videosReducer = (state, { type, payload }) => {
         ...state,
         playlists: state?.playlists?.filter(({ _id }) => _id != payload?._id),
       };
+    case SET_SHOW_ADD_NEW_PLAYLIST_MODAL:
+      return { ...state, showAddNewPlaylistModal: payload };
+    case ADD_NEW_PLAYLIST:
+      return { ...state, playlists: [...state.playlists, payload] };
     default:
       return state;
   }
@@ -58,6 +64,7 @@ export const initialVideos = {
       _id: 2,
       title: "Demo",
       description: "Demo desc",
+      src: "https://picsum.photos/320/176",
       videos: [
         {
           _id: 34,
@@ -85,6 +92,7 @@ export const initialVideos = {
       _id: 4,
       title: "Demo 2",
       description: "Desc 2",
+      src: "https://picsum.photos/320/176",
       videos: [
         {
           _id: 35,
@@ -110,4 +118,5 @@ export const initialVideos = {
     },
   ],
   selectedPlaylist: {},
+  showAddNewPlaylistModal: false,
 };
