@@ -8,7 +8,7 @@ import { WatchLater } from "./WatchLater";
 
 export const Home = () => {
   return (
-    <div className="flex flex-col p-10 md:flex-row">
+    <div className="flex flex-col gap-5 p-10 md:flex-row">
       <Sidebar />
       <Routes>
         <Route path="/" element={<Categories />} />

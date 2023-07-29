@@ -7,7 +7,7 @@ export const Sidebar = () => {
   const location = useLocation();
 
   return (
-    <div>
+    <div className="md:w-1/6">
       {SidebarConstants?.map(({ icon, text, route }, index) => {
         const onSameRoute = location.pathname === route;
         return (
