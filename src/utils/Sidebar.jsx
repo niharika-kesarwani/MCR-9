@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 
-import { SidebarConstants } from "../constants/SidebarConstants";
+import { sidebarConstants } from "../constants/sidebar-constants";
 
 export const Sidebar = () => {
   const navigate = useNavigate();
@@ -8,7 +8,7 @@ export const Sidebar = () => {
 
   return (
     <div className="md:w-1/6">
-      {SidebarConstants?.map(({ icon, text, route }, index) => {
+      {sidebarConstants?.map(({ icon, text, route }, index) => {
         const onSameRoute = location.pathname === route;
         return (
           <li

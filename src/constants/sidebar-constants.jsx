@@ -3,7 +3,7 @@ import ExploreIcon from "@mui/icons-material/Explore";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 
-export const SidebarConstants = [
+export const sidebarConstants = [
   {
     icon: <HomeIcon />,
     text: "Home",

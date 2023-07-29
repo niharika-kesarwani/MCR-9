@@ -5,6 +5,7 @@ import { Categories } from "../utils/Categories";
 import { Explore } from "./Explore";
 import { Playlists } from "./Playlists";
 import { WatchLater } from "./WatchLater";
+import { CategoryDetail } from "./CategoryDetail";
 
 export const Home = () => {
   return (
@@ -12,6 +13,7 @@ export const Home = () => {
       <Sidebar />
       <Routes>
         <Route path="/" element={<Categories />} />
+        <Route path="/category/:categoryId" element={<CategoryDetail />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/playlists" element={<Playlists />} />
         <Route path="/watchLater" element={<WatchLater />} />
