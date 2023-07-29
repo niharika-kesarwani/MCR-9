@@ -10,6 +10,9 @@ export const videosReducer = (state, { type, payload }) => {
     DELETE_PLAYLIST,
     SET_SHOW_ADD_NEW_PLAYLIST_MODAL,
     ADD_NEW_PLAYLIST,
+    SET_SHOW_ADD_TO_PLAYLIST_MODAL,
+    SET_SELECTED_VIDEO,
+    ADD_TO_PLAYLIST,
   } = videoConstants;
 
   switch (type) {
@@ -51,6 +54,22 @@ export const videosReducer = (state, { type, payload }) => {
       return { ...state, showAddNewPlaylistModal: payload };
     case ADD_NEW_PLAYLIST:
       return { ...state, playlists: [...state.playlists, payload] };
+    case SET_SHOW_ADD_TO_PLAYLIST_MODAL:
+      return { ...state, showAddToPlaylistModal: payload };
+    case SET_SELECTED_VIDEO:
+      return { ...state, selectedVideo: payload };
+    case ADD_TO_PLAYLIST:
+      return {
+        ...state,
+        playlists: state?.playlists?.map((playlist) =>
+          playlist?._id === payload?._id
+            ? {
+                ...playlist,
+                videos: [state.selectedVideo, ...playlist.videos],
+              }
+            : playlist
+        ),
+      };
     default:
       return state;
   }
@@ -59,64 +78,9 @@ export const videosReducer = (state, { type, payload }) => {
 export const initialVideos = {
   allVideos: [],
   exploreSearchText: "",
-  playlists: [
-    {
-      _id: 2,
-      title: "Demo",
-      description: "Demo desc",
-      src: "https://picsum.photos/320/176",
-      videos: [
-        {
-          _id: 34,
-          title: "Stop Motion Animation Tips and Tricks",
-          views: 3172,
-          chips: ["stop motion", "animation", "tips", "tricks"],
-          thumbnail: "https://picsum.photos/310/174",
-          src: "https://www.youtube.com/embed/GBIIQ0kP15E",
-          category: "Stop Motion",
-          creator: "AnimateMagic",
-        },
-        {
-          _id: 36,
-          title: "Quilling 3D Wall Art - Adding Depth to Paper Designs",
-          views: 1756,
-          chips: ["quilling", "3d wall art", "paper", "designs"],
-          thumbnail: "https://picsum.photos/312/174",
-          src: "https://www.youtube.com/embed/GBIIQ0kP15E",
-          category: "Quilling",
-          creator: "PaperArtDimensions",
-        },
-      ],
-    },
-    {
-      _id: 4,
-      title: "Demo 2",
-      description: "Desc 2",
-      src: "https://picsum.photos/320/176",
-      videos: [
-        {
-          _id: 35,
-          title: "Pottery Art Exhibition - Celebrating Local Artists",
-          views: 2879,
-          chips: ["pottery", "clay", "art exhibition", "local artists"],
-          thumbnail: "https://picsum.photos/311/174",
-          src: "https://www.youtube.com/embed/GBIIQ0kP15E",
-          category: "Pottery",
-          creator: "ArtisticExpressions",
-        },
-        {
-          _id: 36,
-          title: "Quilling 3D Wall Art - Adding Depth to Paper Designs",
-          views: 1756,
-          chips: ["quilling", "3d wall art", "paper", "designs"],
-          thumbnail: "https://picsum.photos/312/174",
-          src: "https://www.youtube.com/embed/GBIIQ0kP15E",
-          category: "Quilling",
-          creator: "PaperArtDimensions",
-        },
-      ],
-    },
-  ],
+  playlists: [],
   selectedPlaylist: {},
   showAddNewPlaylistModal: false,
+  showAddToPlaylistModal: false,
+  selectedVideo: {},
 };

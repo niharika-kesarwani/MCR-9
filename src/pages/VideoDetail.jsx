@@ -5,11 +5,13 @@ import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { videoConstants } from "../constants/video-constants";
+import { AddNewPlaylistModal } from "../modals/AddNewPlaylistModal";
+import { useEffect } from "react";
 
 export const VideoDetail = () => {
   const { videoId } = useParams();
   const {
-    videos: { allVideos },
+    videos: { allVideos, showAddToPlaylistModal },
     setVideos,
   } = useVideos();
   const navigate = useNavigate();
@@ -29,10 +31,23 @@ export const VideoDetail = () => {
     watchLater,
   } = selectedVideo;
 
-  const { HANDLE_WATCH_LATER_VIDEO } = videoConstants;
+  const {
+    HANDLE_WATCH_LATER_VIDEO,
+    SET_SHOW_ADD_TO_PLAYLIST_MODAL,
+    SET_SELECTED_VIDEO,
+  } = videoConstants;
+
+  useEffect(() => {
+    setVideos({ type: SET_SELECTED_VIDEO, payload: selectedVideo });
+  }, [selectedVideo]);
 
   return (
-    <div className="flex flex-col gap-5 px-5 md:flex-row">
+    <div
+      className="flex flex-col gap-5 px-5 md:flex-row"
+      onClick={() =>
+        setVideos({ type: SET_SHOW_ADD_TO_PLAYLIST_MODAL, payload: false })
+      }
+    >
       <div className="flex w-3/5 flex-col gap-3">
         <iframe
           className="w-full"
@@ -55,8 +70,23 @@ export const VideoDetail = () => {
           >
             {watchLater ? <WatchLaterIcon /> : <WatchLaterOutlinedIcon />}
           </div>
-          <div>
+          <div
+            className="relative hover:cursor-pointer"
+            title="Add To Playlist"
+            onClick={(e) => {
+              e.stopPropagation();
+              setVideos({
+                type: SET_SHOW_ADD_TO_PLAYLIST_MODAL,
+                payload: true,
+              });
+            }}
+          >
             <PlaylistAddIcon />
+            {showAddToPlaylistModal && (
+              <div className="absolute right-0 top-0" title="">
+                <AddNewPlaylistModal addToPlaylist />
+              </div>
+            )}
           </div>
           <div>
             <EditNoteIcon />
