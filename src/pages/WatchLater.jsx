@@ -11,7 +11,7 @@ export const WatchLater = () => {
   return (
     <div className="flex flex-col gap-5 px-5">
       <div className="text-2xl font-bold">Watch Later</div>
-      <div className="flex flex-wrap gap-5">
+      <div className="flex flex-wrap gap-4">
         {watchLaterVideos?.map((video) => (
           <VideoCard video={video} key={video._id} />
         ))}

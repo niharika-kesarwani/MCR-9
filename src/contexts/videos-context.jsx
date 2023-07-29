@@ -12,6 +12,15 @@ export const VideosProvider = ({ children }) => {
 
   const { SET_VIDEOS } = videoConstants;
 
+  const { allVideos, exploreSearchText } = videos;
+
+  const exploreVideos =
+    exploreSearchText === ""
+      ? allVideos
+      : allVideos?.filter(({ title }) =>
+          title.toLowerCase().includes(exploreSearchText.toLowerCase())
+        );
+
   useEffect(() => {
     const localStorageVideos = localStorage.getItem("videos");
     if (localStorageVideos) {
@@ -26,7 +35,7 @@ export const VideosProvider = ({ children }) => {
   }, []);
 
   return (
-    <VideosContext.Provider value={{ videos, setVideos }}>
+    <VideosContext.Provider value={{ videos, setVideos, exploreVideos }}>
       {children}
     </VideosContext.Provider>
   );
