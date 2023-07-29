@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
+import CloseIcon from "@mui/icons-material/Close";
 import { useVideos } from "../main";
 import { videoConstants } from "../constants/video-constants";
 
-export const VideoCard = ({ video }) => {
+export const VideoCard = ({ video, playlistPage }) => {
   const { setVideos } = useVideos();
   const navigate = useNavigate();
   const {
@@ -21,7 +22,7 @@ export const VideoCard = ({ video }) => {
     watchLater,
   } = video;
 
-  const { HANDLE_WATCH_LATER_VIDEO } = videoConstants;
+  const { HANDLE_WATCH_LATER_VIDEO, REMOVE_FROM_PLAYLIST } = videoConstants;
 
   return (
     <div
@@ -40,6 +41,18 @@ export const VideoCard = ({ video }) => {
         >
           {watchLater ? <WatchLaterIcon /> : <WatchLaterOutlinedIcon />}
         </div>
+        {playlistPage && (
+          <div
+            className="absolute left-0 top-0 rounded-br-md bg-white p-1 hover:cursor-pointer"
+            title="Remove from Playlist"
+            onClick={(e) => {
+              e.stopPropagation();
+              setVideos({ type: REMOVE_FROM_PLAYLIST, payload: video });
+            }}
+          >
+            <CloseIcon />
+          </div>
+        )}
       </div>
       <div className="flex gap-3">
         <div>
